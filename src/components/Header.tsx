@@ -5,8 +5,6 @@ import GoBackButton from './GoBackButton';
 
 const Header = React.memo(() => {
   let location = useLocation();
-  console.log(location)
-
   return (
     <header>
       <h1>My text editor</h1>{location.pathname !== '/' ? <GoBackButton /> : <AddNote />}

@@ -10,6 +10,7 @@ const NoteView = () => {
   const dispatch = useAppDispatch();
   
   const handleChange = React.useCallback((value) => {
+    console.log(value)
     dispatch(updateNote({id, note: {title: value[0]?.children?.[0]?.text, content: value}}))
   }, [dispatch, id])
   

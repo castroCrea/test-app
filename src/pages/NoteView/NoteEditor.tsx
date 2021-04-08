@@ -3,6 +3,7 @@ import React, { useMemo } from 'react';
 import {
   createAlignPlugin,
   createBlockquotePlugin,
+  createAutoformatPlugin,
   createBoldPlugin,
   createCodeBlockPlugin,
   createCodePlugin,
@@ -35,9 +36,51 @@ import {
   SlatePlugin,
   SlatePlugins,
   TDescendant,
+  BalloonToolbar,
+  ToolbarMark,
+  useSlatePluginType,
+  MARK_BOLD,
+  MARK_ITALIC,
+  MARK_UNDERLINE,
+  createSlatePluginsComponents,
+  createSoftBreakPlugin,
+  createExitBreakPlugin,
+  createResetNodePlugin,
 } from '@udecode/slate-plugins';
+import { optionsAutoformat } from './editorConfig/optionsAutoformat';
+import { optionsSoftBreakPlugin, optionsExitBreakPlugin, optionsResetBlockTypePlugin } from './editorConfig/optionsExist';
 
 const defaultOptions = createSlatePluginsOptions();
+const defaultComponents = createSlatePluginsComponents();
+
+export const BallonToolbarMarks = () => {
+  const arrow = false;
+  const theme = 'dark';
+  const direction = 'top';
+  const hiddenDelay = 0;
+
+  return (
+    <BalloonToolbar
+      direction={direction}
+      hiddenDelay={hiddenDelay}
+      theme={theme}
+      arrow={arrow}
+    >
+      <ToolbarMark
+        type={useSlatePluginType(MARK_BOLD)}
+        icon={<p>B</p>}
+      />
+      <ToolbarMark
+        type={useSlatePluginType(MARK_ITALIC)}
+        icon={<p>I</p>}
+      />
+      <ToolbarMark
+        type={useSlatePluginType(MARK_UNDERLINE)}
+        icon={<p>U</p>}
+      />
+    </BalloonToolbar>
+  );
+};
 
 export const NoteEditor = ({
   title, content, onChange
@@ -50,8 +93,14 @@ export const NoteEditor = ({
         text: title || '',
       },
     ],
+  },{
+    type: ELEMENT_PARAGRAPH,
+    children: [
+      {
+        text: title || '',
+      },
+    ],
   }])]
-
 
   const pluginsMemo: SlatePlugin[] = useMemo(() => {
     const plugins = [
@@ -68,6 +117,7 @@ export const NoteEditor = ({
       createMediaEmbedPlugin(),
       createCodeBlockPlugin(),
       createAlignPlugin(),
+      createAutoformatPlugin(optionsAutoformat(defaultOptions)),
       createBoldPlugin(),
       createCodePlugin(),
       createItalicPlugin(),
@@ -78,6 +128,9 @@ export const NoteEditor = ({
       createSuperscriptPlugin(),
       createKbdPlugin(),
       createNodeIdPlugin(),
+      createResetNodePlugin(optionsResetBlockTypePlugin(defaultOptions)),
+      createSoftBreakPlugin(optionsSoftBreakPlugin(defaultOptions)),
+      createExitBreakPlugin(optionsExitBreakPlugin(defaultOptions)),
       createNormalizeTypesPlugin({
         rules: [{ path: [0, 0], strictType: defaultOptions[ELEMENT_H1].type }],
       }),
@@ -96,11 +149,13 @@ export const NoteEditor = ({
   return (
     <SlatePlugins
       plugins={pluginsMemo}
+      components={defaultComponents}
       options={defaultOptions}
       initialValue={initialValue}
       editableProps={{ placeholder: 'Enter some text...'}}
       onChange={value => onChange(value)}
     >
+      <BallonToolbarMarks />
     </SlatePlugins>
   );
 };

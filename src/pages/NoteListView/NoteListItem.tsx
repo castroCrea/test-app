@@ -7,16 +7,13 @@ import ListItem from '@material-ui/core/ListItem';
 import React from 'react';
 
 const NoteListItem = ({ note }: { note: NoteType }) => {
-
-
   const CustomLink = React.useMemo(
     () =>
-      React.forwardRef((linkProps) => (
-        <Link to={`/${note.id}`} {...linkProps} />
+      React.forwardRef<HTMLAnchorElement>((linkProps, ref) => (
+        <Link to={`/${note.id}`} {...linkProps} ref={ref} />
       )),
     [note.id],
   );
-  
 
   return (
     <ListItem button component={CustomLink}>
