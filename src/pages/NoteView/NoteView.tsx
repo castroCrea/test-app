@@ -1,12 +1,12 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { getCard, updateNote } from '../../app/note/noteSlices';
+import GoBackButton from './GoBackButton';
 import NoteEditor from './NoteEditor';
 
 const NoteView = () => {
-    let { id }: {id: string} = useParams();
-
+  let { id }: {id: string} = useParams();
   const card = useAppSelector(state => getCard(state)(id));
   const dispatch = useAppDispatch();
   
@@ -16,11 +16,12 @@ const NoteView = () => {
   
   return(
     <div>
-      <Link to='/'>Back</Link>
-    <div>
-        <NoteEditor title={card.title} content={card.content} onChange={handleChange}/>
+      <GoBackButton />
+      <div>
+          <NoteEditor title={card.title} content={card.content} onChange={handleChange}/>
+      </div>
     </div>
-  </div>)
+  )
 
 }
 

@@ -5,15 +5,15 @@ import {
   Route,
 } from "react-router-dom";
 import './App.css';
-import NoteList from './pages/NoteList/NoteList';
-import NoteView from './pages/NoteView/NoteView';
+import NoteList from './pages/NoteListView/NoteList';
+import NoteListView from './pages/NoteListView/NoteListView';
 
 function App() {
   return (
     <div className="App">
       <Router>
       <Switch>
-          <Route path="/:id" children={<NoteView />} />
+          <Route path="/:id" children={<NoteListView />} />
           <Route path="/">
             <NoteList />
           </Route>
