@@ -1,0 +1,18 @@
+{
+  "eslint.packageManager": "yarn",
+  "eslint.options": {
+    "cache": true,
+    "cacheLocation": ".cache/eslint",
+    "extensions": [".js", ".jsx", ".mjs", ".json", ".ts", ".tsx"]
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "eslint.alwaysShowStatus": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
+}

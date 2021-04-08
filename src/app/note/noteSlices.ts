@@ -1,17 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { generateId } from '../../services/id'
 import { RootState } from '../../app/store';
+import { TDescendant } from '@udecode/slate-plugins';
 
-export type NoteType = {title?: string,
-    content?: string,
-    id: number}
+export type NoteType = {
+  title?: string,
+  content?: TDescendant[],
+  id: string
+}
 
 export type NoteSliceStateType = {
-  [id: string]: {
-    title?: string,
-    content?: string,
-    id: number
-  }
+  [id: string]: NoteType
 }
 
 const initialState: NoteSliceStateType = {}
@@ -22,7 +21,7 @@ export const noteSlice = createSlice({
   reducers: {
     addNote: (state: NoteSliceStateType) => {
       const newNote: NoteType = {
-        id: generateId(state)
+        id: generateId(state),
       }
       state[newNote.id] = newNote
     },
@@ -32,11 +31,17 @@ export const noteSlice = createSlice({
         state[id] = {...state[id], ...action.payload.card}
       }
     },
+    deleteNote: (state: NoteSliceStateType, action: PayloadAction<{ id: string }>) => {
+      const id = action.payload.id
+      if (state[id]) {
+        delete state[id]
+      }
+    },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { addNote, updateNote } = noteSlice.actions
+export const { addNote, updateNote, deleteNote } = noteSlice.actions
 
 /** SELECTORS */
 export const getCards = (state: RootState) => Object.values(state.note);
