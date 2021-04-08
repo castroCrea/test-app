@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { addNote, getCards } from '../../app/note/noteSlices';
 
@@ -9,8 +10,12 @@ const NoteList = () => {
   return <div>
     <button
       onClick={() => dispatch(addNote())}
-    >Add Note</button>
-    {cards.map(card => <li>{card.title}</li>)}
+    >
+      Add Note
+    </button>
+    {cards.map(card =>
+      <Link to={`/${card.id}`}>{card.title || 'Untitled'}</Link>
+    )}
     </div>
 }
 
