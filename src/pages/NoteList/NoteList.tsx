@@ -4,9 +4,8 @@ import { addNote, getCards } from '../../app/note/noteSlices';
 
 const NoteList = () => {
   const cards = useAppSelector(getCards);
-    const dispatch = useAppDispatch();
-
-
+  const dispatch = useAppDispatch();
+  
   return <div>
     <button
       onClick={() => dispatch(addNote())}
