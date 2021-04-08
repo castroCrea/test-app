@@ -25,10 +25,10 @@ export const noteSlice = createSlice({
       }
       state[newNote.id] = newNote
     },
-    updateNote: (state: NoteSliceStateType, action: PayloadAction<{ id: string, card: Partial<NoteType> }>) => {
+    updateNote: (state: NoteSliceStateType, action: PayloadAction<{ id: string, note: Partial<NoteType> }>) => {
       const id = action.payload.id
       if (state[id]) {
-        state[id] = {...state[id], ...action.payload.card}
+        state[id] = {...state[id], ...action.payload.note}
       }
     },
     deleteNote: (state: NoteSliceStateType, action: PayloadAction<{ id: string }>) => {
@@ -44,7 +44,7 @@ export const noteSlice = createSlice({
 export const { addNote, updateNote, deleteNote } = noteSlice.actions
 
 /** SELECTORS */
-export const getCards = (state: RootState) => Object.values(state.note);
-export const getCard = (state: RootState) => (id: string) => state.note[id];
+export const getNotes = (state: RootState) => Object.values(state.note);
+export const getNote = (state: RootState) => (id: string) => state.note[id];
 
 export default noteSlice.reducer

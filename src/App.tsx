@@ -5,19 +5,23 @@ import {
   Route,
 } from "react-router-dom";
 import './App.css';
-import NoteList from './pages/NoteListView/NoteList';
+import Header from './components/Header';
 import NoteListView from './pages/NoteListView/NoteListView';
+import NoteView from './pages/NoteView/NoteView';
 
 function App() {
   return (
     <div className="App">
       <Router>
-      <Switch>
-          <Route path="/:id" children={<NoteListView />} />
-          <Route path="/">
-            <NoteList />
-          </Route>
-        </Switch>
+        <Header />
+        <section>
+          <Switch>
+              <Route path="/:id" children={<NoteView />} />
+              <Route path="/">
+                <NoteListView />
+              </Route>
+            </Switch>
+        </section>
       </Router>
     </div>
   );

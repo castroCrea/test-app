@@ -1,13 +1,16 @@
-import React from 'react';
-import AddNote from './AddNote';
-import NoteList from './NoteList';
+import { useAppSelector } from '../../app/hooks';
+import { getNotes } from '../../app/note/noteSlices';
+import NoteListItem from './NoteListItem';
+import List from '@material-ui/core/List';
 
 const NoteListView = () => {
-  return (
-    <div>
-      <AddNote />
-      <NoteList />
-    </div>)
+  const notes = useAppSelector(getNotes);
+
+  return <List>
+    {notes.map(note =>
+      <NoteListItem note={note} key={note.id} />
+    )}
+    </List>
 }
 
 export default NoteListView

@@ -43,14 +43,14 @@ export const NoteEditor = ({
   title, content, onChange
 }: {title?: string, content?: TDescendant[], onChange: (value: TDescendant[]) => void}) => {
 
-  const initialValue = [{
+  const initialValue = [ ...(content || [{
     type: ELEMENT_H1,
     children: [
       {
         text: title || '',
       },
     ],
-  }, ...(content || [])]
+  }])]
 
 
   const pluginsMemo: SlatePlugin[] = useMemo(() => {
