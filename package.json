@@ -18,6 +18,7 @@
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "redux-persist": "^6.0.0",
     "slate": "^0.62.0",
     "slate-history": "^0.62.0",
     "slate-hyperscript": "^0.62.0",
